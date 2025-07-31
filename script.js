@@ -1,18 +1,23 @@
+let display = document.getElementById("display");
 
-let display = document.getElementById('display');
-
-function appendSymbol(value) {
-  display.value += value;
+function appendSymbol(symbol) {
+  display.value += symbol;
 }
 
-function clearDisplay() {
-  display.value = '';
+function allClear() {
+  display.value = "";
+}
+
+function clearLast() {
+  display.value = display.value.slice(0, -1);
 }
 
 function calculate() {
   try {
-    display.value = eval(display.value);
-  } catch {
-    display.value = 'Error';
+    // Evaluate the expression using Function constructor for safety
+    let result = new Function("return " + display.value)();
+    display.value = result;
+  } catch (e) {
+    display.value = "Error";
   }
 }
